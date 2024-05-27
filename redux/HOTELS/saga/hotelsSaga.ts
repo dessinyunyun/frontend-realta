@@ -11,8 +11,9 @@ import {
 } from "../action/actionHotels"
 
 function* handleGetHotels(action: any): any {
+  console.log(action)
   try {
-    const result = yield call(ApiMethodHotels.get, action.payload)
+    const result = yield call(ApiMethodHotels.getAll, action.payload)
     // console.log("tes" + result)
     yield put(doGetHotelsResponse(result.data))
   } catch (error: any) {
@@ -22,7 +23,6 @@ function* handleGetHotels(action: any): any {
 }
 
 function* handleGetHotelsById(action: any): any {
-  console.log(action)
   try {
     const result = yield call(ApiMethodHotels.getOne, action.payload)
     // console.log("tes" + result)
@@ -47,6 +47,7 @@ function* handleGetHotelsByName(action: any): any {
 
 function* handleAddHotels(action: any): any {
   try {
+    console.log(action)
     const result = yield call(ApiMethodHotels.create, action.payload)
     yield put(doAddHotelsResponse(result.data))
   } catch (error) {

@@ -4,8 +4,10 @@ import axios from "../config"
 
 //   return axios.get("/hotels")
 // }
-const get = offset => {
-  return axios.get(`/hotels/pagination/${offset}`)
+const getAll = payload => {
+  return axios.get(
+    `/hotels?page=${payload.page}&limit=${payload.limit}&name=${payload.name}`
+  )
 }
 
 const getOne = id => {
@@ -40,7 +42,7 @@ const remove = id => {
 }
 
 const ApiMethod = {
-  get,
+  getAll,
   getOne,
   create,
   update,

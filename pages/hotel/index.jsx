@@ -5,7 +5,7 @@ import {
   doRequestGetHotels,
   doRequestGetHotelsByName,
 } from "../../redux/HOTELS/action/actionHotels"
-import { Search, ThreeDots } from "@/components/icons/index"
+import { Searchbutton, ThreeDots } from "@/components/icons/index"
 import RatingStars from "@/functions/ratingStarsFunction"
 import moment from "moment"
 import ModalEditAdd from "../../components/hotel/hotels/ModalAddHotels"
@@ -28,16 +28,20 @@ export default function Hotel() {
     useSelector(state => state.hotelsReducers)
   const dispatch = useDispatch()
 
+  console.log(hotels)
   const [paginationLocation, setPagination] = React.useState(1)
 
   const handleSearching = e => {
     const payload = {
-      paginationLocation: paginationLocation,
       search: e.target.value,
+      limit: 10,
+      page: 1,
+      // paginationLocation: paginationLocation,
+      name: e.target.value,
     }
 
     setSearch(e.target.value)
-    dispatch(doRequestGetHotelsByName(payload))
+    dispatch(doRequestGetHotels(payload))
     if (search.length == 0) {
       setPagination(1)
     }
@@ -45,17 +49,24 @@ export default function Hotel() {
   }
 
   const router = useRouter()
-  console.log(search)
+
   React.useEffect(() => {
     if (search.length > 0) {
       const payload = {
-        paginationLocation: paginationLocation,
-        search,
+        limit: 10,
+        page: 1,
+        // paginationLocation: paginationLocation,
+        name: search,
       }
 
-      dispatch(doRequestGetHotelsByName(payload))
+      dispatch(doRequestGetHotels(payload))
     } else {
-      dispatch(doRequestGetHotels(paginationLocation))
+      const payload = {
+        limit: 10,
+        page: 1,
+        name: "",
+      }
+      dispatch(doRequestGetHotels(payload))
     }
   }, [paginationLocation, refresh, router.pathname])
 
@@ -73,7 +84,6 @@ export default function Hotel() {
     }
   }, [menuOptions])
 
-  React.useEffect(() => {}, [refresh])
   console.log(totalPagination)
   return (
     <div className="container px-4 pt-10 ">
@@ -99,7 +109,7 @@ export default function Hotel() {
       </div>
 
       <div className="contain-search-add flex justify-between items-center">
-        <div className="search max-w-fit">
+        <div className="search">
           <div className="pt-2 relative mx-auto text-textSecondary">
             <form className="relative flex">
               <button
@@ -107,7 +117,7 @@ export default function Hotel() {
                 className="absolute inset-y-0 left-0 flex items-center justify-center px-3"
                 onClick={handleSearching}
               >
-                <Search width="20" color={"text-textSecondary"} />
+                <Searchbutton width="20" color={"text-textSecondary"} />
               </button>
               <input
                 className="border-2 border-gray-300 bg-white h-10 px-3 pl-10 rounded-lg text-sm focus:outline-none flex-grow"
@@ -150,14 +160,13 @@ export default function Hotel() {
             </tr>
           </thead>
           <tbody>
-            {status !== 400 &&
-              hotels?.length > 0 &&
-              hotels.map(hotel => (
+            {hotels?.length > 0 &&
+              hotels.map((hotel, index) => (
                 <tr
                   className="text-center text-textSecondary font-regular border-t border-slate-200 relative"
                   key={hotel.hotel_id}
                 >
-                  <td className="p-3">{hotel.row_number}</td>
+                  <td className="p-3">{index + 1}</td>
                   <td>
                     <Link href={`/hotel/${hotel.hotel_id}`}>
                       {hotel.hotel_name}
@@ -168,25 +177,6 @@ export default function Hotel() {
                     {<RatingStars count={hotel.hotel_rating_star} />}
                   </td>
                   <td>{moment(hotel.hotel_modified_date).format("ll")}</td>
-
-                  {/* <td className="flex p-3 justify-center gap-2 items-center content-center w-full h-full">
-                    <td className="flex pt-3 justify-start gap-2 items-center content-center w-full h-full">
-                      <div onClick={() => setOptions(faci.faci_id)}>
-                        <ThreeDots />
-                      </div>
-                    </td>
-                    <div
-                      className="pencil cursor-pointer"
-                      onClick={() => {
-                        setShowModalEdit(true)
-                        setHotelChoseEdit(hotel.hotel_id)
-                      }}
-                    >
-                      <Pencil width="15" />{" "}
-                    </div>
-                    |
-                    <Trash width="15" />
-                  </td> */}
                   <td className="flex pt-3 justify-center gap-2 items-center content-center w-full h-full">
                     <div onClick={() => setOptions(hotel.hotel_id)}>
                       <ThreeDots />

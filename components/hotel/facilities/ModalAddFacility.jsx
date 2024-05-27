@@ -3,7 +3,7 @@ import { doAddHotels } from "@/redux/HOTELS/action/actionHotels"
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Calendar } from "../../icons"
-import Datepicker from "react-tailwindcss-datepicker"
+import Datepicker from "react-datepicker"
 
 export default function ModalAdd(props) {
   const dispatch = useDispatch()

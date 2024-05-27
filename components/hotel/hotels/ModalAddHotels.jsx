@@ -65,6 +65,7 @@ export default function ModalAdd(props) {
     })
   }
   const submitAddHotel = e => {
+    console.log(newHotel)
     e.preventDefault()
     dispatch(doAddHotels(newHotel))
     props.setShowModalAdd(false)

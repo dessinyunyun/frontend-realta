@@ -19,7 +19,6 @@
   border: 3px solid #f5f5f5;
 }
 
-
 @tailwind components;
 @tailwind utilities;
 @tailwind components;
@@ -59,3 +58,34 @@ html {
   font-family: "poppins-light";
   src: url("../assets/fonts/Poppins-Light.ttf");
 }
+/* 
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.search {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 400px;
+  z-index: 10;
+}
+
+.search input {
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  width: 100%;
+}
+
+.locate {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  z-index: 10;
+  cursor: pointer;
+} */

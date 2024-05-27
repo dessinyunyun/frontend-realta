@@ -17,7 +17,7 @@ import MenuAlt from "./MenuAlt"
 import Money from "./Money"
 import Pencil from "./Pencil"
 import Plus from "./Plus"
-import Search from "./Search"
+import Searchbutton from "./Search"
 import Trash from "./Trash"
 import User from "./User"
 import UserCircleFill from "./UserCircleFill"
@@ -52,7 +52,7 @@ export {
   Pencil,
   Plus,
   RatingStart,
-  Search,
+  Searchbutton,
   ThreeDots,
   Trash,
   Tv,
